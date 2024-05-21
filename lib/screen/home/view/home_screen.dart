@@ -1,11 +1,11 @@
 import 'dart:ffi';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
+import 'package:gemini_ai_app/utils/database_helper.dart';
 import 'package:gemini_ai_app/widget/custom_textfield.dart';
 import 'package:get/get.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../controller/home_controller.dart';
 
@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Expanded(
                     child: Obx(
                       () => controller.homeModel.value == null
-                          ? const Text("Hello How Can I Help You!")
+                          ? const Text("How Can I Help You!",style: TextStyle(fontSize: 20,color: Colors.white,fontFamily: "light"),)
                           : ListView.builder(
                               itemCount: 1,
                               itemBuilder: (context, index) => ListTile(
@@ -79,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         IconButton.outlined(
                           onPressed: () async {
                             await controller.getData(txtQuestion.text);
+                            await DataBaseHelper.dataBaseHelper.addData(question: txtQuestion.text, ans:"${controller.homeModel.value!.candidates![0].content!.parts![0].text}");
                             txtQuestion.clear();
                           },
                           icon: const Icon(

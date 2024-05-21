@@ -17,8 +17,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController txtEmail =TextEditingController();
-  TextEditingController txtPassword =TextEditingController();
+  TextEditingController txtEmail = TextEditingController();
+  TextEditingController txtPassword = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -104,9 +105,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.white),
                     ),
                     const Spacer(),
-                    CustomTextField(controller: txtEmail,),
+                    CustomTextField(
+                      controller: txtEmail,
+                      hintText: "Enter your Email",
+                      icon: const Icon(Icons.email_outlined),
+                    ),
                     const Gap(20),
-                    CustomTextField(controller: txtPassword,),
+                    CustomTextField(
+                      controller: txtPassword,
+                      hintText: "Password",
+                      icon: const Icon(Icons.remove_red_eye),
+                    ),
                     const Gap(20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -136,15 +145,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        InkWell(onTap: () async {
-                          String msg=await FireAuthHelper.fireAuthHelper.guestLogin();
-                          Get.snackbar(msg, "Login success fully");
-                          if(msg=="success")
-                          {
-                            FireAuthHelper.fireAuthHelper.checkUser();
-                            Get.offAllNamed('dash');
-                          }
-                        },child: buttonTile("google.png")),
+                        InkWell(
+                            onTap: () async {
+                              String msg = await FireAuthHelper.fireAuthHelper
+                                  .guestLogin();
+                              Get.snackbar(msg, "Login success fully");
+                              if (msg == "success") {
+                                FireAuthHelper.fireAuthHelper.checkUser();
+                                Get.offAllNamed('dash');
+                              }
+                            },
+                            child: buttonTile("google.png")),
                         const Gap(20),
                         buttonTile("facebook (1).png"),
                         const Gap(20),
@@ -185,8 +196,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Container buttonTile(String image) {
     return Container(
       height: 65,
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(10),
       decoration:
           const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
       child: Center(

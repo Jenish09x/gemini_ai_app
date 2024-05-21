@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:gemini_ai_app/screen/history/controller/history_controller.dart';
+import 'package:get/get.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -9,6 +11,14 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+  HistoryController controller = Get.put(HistoryController());
+
+  @override
+  void initState() {
+    super.initState();
+    controller.getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -60,48 +70,29 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   ),
                   const Gap(20),
                   Container(
-                    height: MediaQuery.sizeOf(context).height * 0.20,
-                    width: MediaQuery.sizeOf(context).height * 0.80,
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.black),
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "C++ Programing Structure",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: "light",
-                              fontSize: 17),
+                    child: Obx(
+                      () => Expanded(
+                        child: ListView.builder(
+                          itemCount: controller.historyList.length,
+                          itemBuilder: (context, index) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${controller.historyList[index].question}",
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "light",
+                                    fontSize: 17),
+                              ),
+                              const Divider(),
+                            ],
+                          ),
                         ),
-                        Divider(),
-                        Text(
-                          "Error in Code",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: "light",
-                              fontSize: 17),
-                        ),
-                        Divider(),
-                        Text(
-                          "What is Flutter",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: "light",
-                              fontSize: 17),
-                        ),
-                        Divider(),
-                        Text(
-                          "What is FireBase",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: "light",
-                              fontSize: 17),
-                        ),
-                        Divider(),
-                      ],
+                      ),
                     ),
                   )
                 ],
