@@ -5,9 +5,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DataBaseHelper {
+  static DataBaseHelper dataBaseHelper = DataBaseHelper._();
 
-  static DataBaseHelper dataBaseHelper= DataBaseHelper._();
   DataBaseHelper._();
+
   Database? db;
 
   //check database
@@ -36,23 +37,24 @@ class DataBaseHelper {
   }
 
   //add data
-  Future<void> addData({required String question,required String ans}) async {
+  Future<void> addData(HistoryModel historyModel) async {
     var insertDb = await checkDb();
-    insertDb!.insert("history",{"question": question, "ans": ans});
+    insertDb!.insert("history",
+        {"question": historyModel.question, "ans": historyModel.ans});
   }
 
   // //read data
   Future<List<HistoryModel>> readData() async {
     var readDb = await checkDb();
-    List<Map> data = await readDb!.rawQuery("SELECT * FROM history",null);
-    List<HistoryModel> l1=  data.map((e) => HistoryModel.mapToModel(e)).toList();
+    List<Map> data = await readDb!.rawQuery("SELECT * FROM history", null);
+    List<HistoryModel> l1 =
+        data.map((e) => HistoryModel.mapToModel(e)).toList();
     return l1;
   }
 
   //delete data
-  Future<void> deleteData(int id)
-  async {
+  Future<void> deleteData(String id) async {
     var deleteDb = await checkDb();
-    deleteDb?.delete("history",where: "id==?",whereArgs: [id]);
+    deleteDb?.delete("history", where: "id==?", whereArgs: [id]);
   }
 }

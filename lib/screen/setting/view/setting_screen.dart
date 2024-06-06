@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gemini_ai_app/utils/fire_helper.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -32,13 +33,11 @@ class _SettingScreenState extends State<SettingScreen> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Align(alignment: const Alignment(0.09, 0),child: Image.asset("assets/image/chatgpt robot.png",height: 200,)),
-                const Text(
-                  "Gemini Ai Bot",
-                  style: TextStyle(
-                      fontFamily: "semiBold",
-                      color: Colors.white,
-                      fontSize: 20),
+                IconButton(
+                  onPressed: () async {
+                    await FireAuthHelper.fireAuthHelper.signOut();
+                  },
+                  icon: const Icon(Icons.logout),
                 ),
               ],
             ),

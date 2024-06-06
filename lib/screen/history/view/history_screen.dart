@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:gemini_ai_app/screen/history/controller/history_controller.dart';
@@ -69,24 +70,39 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     ],
                   ),
                   const Gap(20),
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.black),
-                    child: Obx(
-                      () => Expanded(
-                        child: ListView.builder(
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.black),
+                      child: Obx(
+                        () => ListView.builder(
                           itemCount: controller.historyList.length,
                           itemBuilder: (context, index) => Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "${controller.historyList[index].question}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: "light",
-                                    fontSize: 17),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "${controller.historyList[index].question}",
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: "light",
+                                        fontSize: 17),
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        controller.deleteData(index);
+                                        controller.getData();
+                                      },
+                                      icon: const Icon(
+                                        Icons.delete_outline,
+                                        color: Colors.white,
+                                      )),
+                                ],
                               ),
                               const Divider(),
                             ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gemini_ai_app/screen/dash/view/dash_screen.dart';
 import 'package:gemini_ai_app/screen/history/view/history_screen.dart';
 import 'package:gemini_ai_app/screen/login/view/login_screen.dart';
+import 'package:gemini_ai_app/screen/login/view/register_screen.dart';
 import 'package:gemini_ai_app/screen/setting/view/setting_screen.dart';
 
 
@@ -12,6 +13,7 @@ Map<String,WidgetBuilder>screen_routes={
   '/':(context) => const SplashScreen(),
   'dash':(context) => const DashScreen(),
   'login':(context) => const LoginScreen(),
+  'register':(context) => const RegisterScreen(),
   'home':(context) => const HomeScreen(),
   'history':(context) => const HistoryScreen(),
   'setting':(context) => const SettingScreen(),

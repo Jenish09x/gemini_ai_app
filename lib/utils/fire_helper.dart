@@ -49,7 +49,8 @@ class FireAuthHelper {
 
     GoogleSignInAuthentication? gAuth = await account?.authentication;
 
-    var crd = GoogleAuthProvider.credential(accessToken: gAuth?.accessToken,idToken: gAuth?.idToken);
+    var crd = GoogleAuthProvider.credential(
+        accessToken: gAuth?.accessToken, idToken: gAuth?.idToken);
 
     try {
       await auth.signInWithCredential(crd);

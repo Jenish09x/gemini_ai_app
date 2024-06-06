@@ -32,7 +32,7 @@ class APIHelper {
       dynamic json = jsonDecode(response.body);
       HomeModel? homeModel = HomeModel.mapToModel(json);
 
-      print(json);
+      // print(json);
       return homeModel;
     }
     return null;

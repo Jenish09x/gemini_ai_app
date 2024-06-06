@@ -11,4 +11,9 @@ class HistoryController extends GetxController
   async {
     historyList.value = await DataBaseHelper.dataBaseHelper.readData();
   }
+
+  Future<void> deleteData(int index)
+  async {
+   await DataBaseHelper.dataBaseHelper.deleteData("${historyList[index].id}");
+  }
 }
